@@ -1,0 +1,40 @@
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=true, sel=address, a=r1, b=r2, c=r3, d=r4, e=r5, f=r6, g=r7, h=r8);
+
+    And(a=r1, b=load, out=r1AndOut);
+    Register(in=in, load=r1AndOut, out=r1Out);
+
+    And(a=r2, b=load, out=r2AndOut);
+    Register(in=in, load=r2AndOut, out=r2Out);
+
+    And(a=r3, b=load, out=r3AndOut);
+    Register(in=in, load=r3AndOut, out=r3Out);
+
+    And(a=r4, b=load, out=r4AndOut);
+    Register(in=in, load=r4AndOut, out=r4Out);
+
+    And(a=r5, b=load, out=r5AndOut);
+    Register(in=in, load=r5AndOut, out=r5Out);
+
+    And(a=r6, b=load, out=r6AndOut);
+    Register(in=in, load=r6AndOut, out=r6Out);
+
+    And(a=r7, b=load, out=r7AndOut);
+    Register(in=in, load=r7AndOut, out=r7Out);
+
+    And(a=r8, b=load, out=r8AndOut);
+    Register(in=in, load=r8AndOut, out=r8Out);
+
+    Mux16(a[0..15]=false, b=r1Out, sel=r1, out=rslt1);
+    Mux16(a=rslt1, b=r2Out, sel=r2, out=rslt2);
+    Mux16(a=rslt2, b=r3Out, sel=r3, out=rslt3);
+    Mux16(a=rslt3, b=r4Out, sel=r4, out=rslt4);
+    Mux16(a=rslt4, b=r5Out, sel=r5, out=rslt5);
+    Mux16(a=rslt5, b=r6Out, sel=r6, out=rslt6);
+    Mux16(a=rslt6, b=r7Out, sel=r7, out=rslt7);
+    Mux16(a=rslt7, b=r8Out, sel=r8, out=out);
+}
